@@ -14,7 +14,7 @@ The production paths declared here are:
 | GET | `/robot_api/v1/cloudFile/getToken` | Qiniu upload token |
 | GET | `/robot_api/v1/cloudFile/getSessionToken` | S3 session token |
 
-The launcher also needs calendar, weather, clock, countdown, general config, and channel-logo endpoints. Those paths are not in this library. `Constants.kt` holds the host (`https://your-server.com` and the overseas host). Point that host at a real or mock API that implements the paths above.
+The launcher also needs calendar, weather, clock, countdown, general config, and channel-logo endpoints. Those paths are not in this library. `Constants.kt` points both regions at the local mock, `http://10.0.2.2:8080/` (the emulator's name for the host). Use `http://127.0.0.1:8080/` when the app is not in an emulator.
 
 ### Mock
 
