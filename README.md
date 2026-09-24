@@ -16,6 +16,26 @@ The production paths declared here are:
 
 The launcher also needs calendar, weather, clock, countdown, general config, and channel-logo endpoints. Those paths are not in this library. `Constants.kt` holds the host (`https://your-server.com` and the overseas host). Point that host at a real or mock API that implements the paths above.
 
+### Mock
+
+A runnable server that returns these bodies is `mock/main.go` in [third_party_demo](https://github.com/ogrums/third_party_demo) (`go run ./mock`, port 8080).
+
+For a unit test, use [FakeNetDataRepository](app/src/test/java/com/letianpai/network/template/repository/FakeNetDataRepository.kt). It implements `NetDataRepositorySource` and emits `Resource.Success` without the network:
+
+```kotlin
+val repo: NetDataRepositorySource = FakeNetDataRepository()
+repo.getSnHardcode(hashMapOf()).collect { result ->
+    Log.d("mock", result.data?.sn ?: "missing")
+}
+```
+
+`getSnByMac` JSON, which matches `SnHardcode`:
+
+```json
+{"code":0,"msg":"success","data":{"client_id":"mock-client","hard_code":"mock-hardcode","sn":"EMULATOR00000000"}}
+```
+
+
 ### 1. Usage
 
 The return type is Resource so it can be observed with LiveData later.
