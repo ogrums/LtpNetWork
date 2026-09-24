@@ -28,7 +28,7 @@ open class NetDataRepository(context: Context) :
 
     override fun requestCoopOrgan(): Flow<Resource<List<CoopOrganModel>>> {
         return flow<Resource<List<CoopOrganModel>>> {
-            //todo: 这里请求网络
+            // request the network here
         }.flowOn(ioDispatcher)
     }
 
@@ -56,9 +56,9 @@ open class NetDataRepository(context: Context) :
         }.flowOn(ioDispatcher)
     }
 
-    //todo: 以下是业务接口
+    // business APIs below
     /**
-     * 获取长连三元组
+     * Fetch the long-connection IoT triplet
      */
     override fun getIotTriplet(hashMap: HashMap<String, Any>): Flow<Resource<IotTripletM>> {
         return flow {
@@ -67,7 +67,7 @@ open class NetDataRepository(context: Context) :
     }
 
     /**
-     * 获取sn hardcode
+     * Fetch SN and hardcode
      */
     override fun getSnHardcode(hashMap: HashMap<String, Any>): Flow<Resource<SnHardcode>> {
         return flow {
@@ -76,7 +76,7 @@ open class NetDataRepository(context: Context) :
     }
 
     /**
-     * 更新升级状态
+     * Report the upgrade status
      */
     override fun upgradeStatus(sn: String,ts: String, model: OtaUpgradeStatusModel): Flow<Resource<GeneModel>> {
         return flow {

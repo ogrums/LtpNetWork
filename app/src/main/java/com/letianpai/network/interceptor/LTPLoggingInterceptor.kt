@@ -13,12 +13,12 @@ class LTPLoggingInterceptor : Interceptor {
         val requestMethod = request.method
         message = if (requestMethod == "POST") {
             String.format(
-                "发送请求 %s on %s %n %s %s",
+                "request %s on %s %n %s %s",
                 request.url, request.body, chain.connection(), request.headers
             )
         } else {
             String.format(
-                "发送请求 %s ： %n ：%s ： %s",
+                "request %s : %n :%s : %s",
                 request.url, chain.connection(), request.headers
             )
         }

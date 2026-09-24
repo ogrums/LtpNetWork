@@ -81,7 +81,7 @@ public class AppUtils {
     // Audio Manager
     private static AudioManager sAudioManager;
 
-    // su 别名
+    // su alias
     private static String sSuAlias = "";
 
     /**
@@ -129,7 +129,7 @@ public class AppUtils {
      *
      * @return serial number
      *
-     * 系统还是通过系统属性获取的
+     * The system still reads this from a system property
      * public @Nullable String getSerialForPackage(String callingPackage,
      *                 String callingFeatureId) throws RemoteException {
      *             if (!TelephonyPermissions.checkCallingOrSelfReadDeviceIdentifiers(mContext,
@@ -707,9 +707,9 @@ public class AppUtils {
     }
 
     /**
-     * 获取剩余存储空间大小
+     * Remaining storage size
      *
-     * @return 剩余存储空间大小（单位：Kb）
+     * @return remaining storage in Kb
      */
     public static long getFreeStorageSize() {
         StatFs statFs = new StatFs(Environment.getExternalStorageDirectory().getPath());
@@ -719,11 +719,11 @@ public class AppUtils {
     }
 
     /**
-     * 将时间转换为时间戳
+     * Convert a date string to a timestamp
      *
-     * @param dateStr 格式化日期
-     * @param format  例如："yyyy-MM-dd HH:mm:ss"
-     * @return 时间戳
+     * @param dateStr formatted date
+     * @param format for example "yyyy-MM-dd HH:mm:ss"
+     * @return timestamp
      * @throws ParseException
      */
     @SuppressLint("SimpleDateFormat")
@@ -734,11 +734,11 @@ public class AppUtils {
     }
 
     /**
-     * 将时间戳转换为时间
+     * Convert a timestamp to a date string
      *
-     * @param timestamp 时间戳
-     * @param format    例如："yyyy-MM-dd HH:mm:ss"
-     * @return 格式化日期
+     * @param timestamp timestamp
+     * @param format for example "yyyy-MM-dd HH:mm:ss"
+     * @return formatted date
      */
     @SuppressLint("SimpleDateFormat")
     public static String stampToDate(long timestamp, String format) {
@@ -748,9 +748,9 @@ public class AppUtils {
     }
 
     /**
-     * 获取su命令别名（个别项目会重命名su）
+     * su command alias. Some builds rename su.
      *
-     * @return su别名
+     * @return su alias
      */
     public static String getSuAlias() {
         if (TextUtils.isEmpty(sSuAlias)) {

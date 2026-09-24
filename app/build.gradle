@@ -71,7 +71,7 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     api "com.squareup.okhttp3:logging-interceptor:$okhttpInterceptorVersion"
 
-    //集成xlog
+    // xlog
     api 'com.elvishew:xlog:1.10.1'
 
     implementation('com.qiniu:qiniu-android-sdk:8.6.+') {

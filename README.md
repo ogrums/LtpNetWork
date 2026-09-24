@@ -1,10 +1,46 @@
-# RHJNetWork
+# LtpNetWork
 
-### 一，使用说明
+Android Retrofit client for the Letianpai cloud. This is not a server and it cannot stand in for one. It only calls an existing host.
 
-返回类型定义为 Resource 方便与后期给livedata监听；
+The production paths declared here are:
 
-例如：
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/robot_api/v1/bind/getIotTriplet` | IoT long-connection credentials |
+| GET | `/robot_api/v1/bind/getSnByMac` | Serial number and hardcode from the MAC |
+| POST | `/robot_api/v1/device/upgrade/status` | OTA progress |
+| GET | `/robot_api/v1/ota/getLatestPackage` | Latest OTA package |
+| POST | `/robot_api/v1/device/addRecord` | Upload a photo or voice record |
+| GET | `/robot_api/v1/cloudFile/getToken` | Qiniu upload token |
+| GET | `/robot_api/v1/cloudFile/getSessionToken` | S3 session token |
+
+The launcher also needs calendar, weather, clock, countdown, general config, and channel-logo endpoints. Those paths are not in this library. `Constants.kt` holds the host (`https://your-server.com` and the overseas host). Point that host at a real or mock API that implements the paths above.
+
+### Mock
+
+A runnable server that returns these bodies is `mock/main.go` in [third_party_demo](https://github.com/ogrums/third_party_demo) (`go run ./mock`, port 8080).
+
+For a unit test, use [FakeNetDataRepository](app/src/test/java/com/letianpai/network/template/repository/FakeNetDataRepository.kt). It implements `NetDataRepositorySource` and emits `Resource.Success` without the network:
+
+```kotlin
+val repo: NetDataRepositorySource = FakeNetDataRepository()
+repo.getSnHardcode(hashMapOf()).collect { result ->
+    Log.d("mock", result.data?.sn ?: "missing")
+}
+```
+
+`getSnByMac` JSON, which matches `SnHardcode`:
+
+```json
+{"code":0,"msg":"success","data":{"client_id":"mock-client","hard_code":"mock-hardcode","sn":"EMULATOR00000000"}}
+```
+
+
+### 1. Usage
+
+The return type is Resource so it can be observed with LiveData later.
+
+Example:
 
 ```kotlin
 private val test2LiveDataPrivate = MutableLiveData<Resource<ChallengeEntity>>()
@@ -26,9 +62,9 @@ fun test2() {
 
 
 
-### 二，使用举例
+### 2. Example
 
-在NetDataRepositorySource 接口中定义具体接口方法，然后在NetDataRepository中实现此接口。
+Declare the method on NetDataRepositorySource, then implement it in NetDataRepository.
 
 ```kotlin
 fun getTestRequest(): Flow<Resource<String>>
@@ -45,23 +81,23 @@ private suspend fun test(){
 
 ​	
 
-面向业务的只有NetDataRepository类，需要请求什么接口都从此类出发。
+Call sites only use NetDataRepository. Start every request from that class.
 
-请求回来的是自定义的Resource类型，其中有三种状态，Success、Loading、DataError。
+The result is a Resource with three states: Success, Loading, and DataError.
 
-可以单独处理Resource类型中的数据，也可以将Resource和livedata结合，实现单向数据流绑定的方式。
+Handle the Resource payload directly, or combine it with LiveData for a one-way data flow.
 
 
 
 ---
 
-#### # 具体步骤：
+#### Steps
 
-在使用此库的时候，有 4 个类需要使用者继承覆写，分别是 NewApi，RemoteData, NetDataRepository,  NetDataRepositorySource。
+To use this library, extend or override four types: NewApi, RemoteData, NetDataRepository, and NetDataRepositorySource.
 
 
 
-1，在NewApi中，声明接口方法：
+1. Declare the Retrofit method on NewApi:
 
 ```kotlin
 @GET("index/getorder")
@@ -70,7 +106,7 @@ suspend fun getOrderModelReq(): Response<BaseResultBean<OrderModel>>
 
 
 
-2，写一个类继承自RemoteDataSource，实现NewApi中的方法，这里注意，返回值类型不同了：
+2. Subclass RemoteDataSource and implement the NewApi method. The return type changes:
 
 ```kotlin
 override suspend fun getOrderModelReq(): Resource<OrderModel> {
@@ -85,13 +121,13 @@ override suspend fun getOrderModelReq(): Resource<OrderModel> {
 
 
 
-3，在NetDataRepositorySource 中声明，定义flow格式：
+3. Declare the Flow on NetDataRepositorySource:
 
 ```kotlin
 fun getOrderModelReq(): Flow<Resource<OrderModel>>
 ```
 
-4，在 NetDataRepository 中具体实现：
+4. Implement it in NetDataRepository:
 
 ```kotlin
 override fun getOrderModelReq(): Flow<Resource<OrderModel>> {
@@ -101,7 +137,7 @@ override fun getOrderModelReq(): Flow<Resource<OrderModel>> {
 }
 ```
 
-5，使用，需要放在协程中：
+5. Call it from a coroutine:
 
 ```kotlin
 private suspend fun test3(){
@@ -114,15 +150,15 @@ private suspend fun test3(){
 
 ---
 
-Tips: 此库中定义了一些拦截器，后期根据需求可用来签名、加密等。
+Tips: the library ships interceptors that can later sign or encrypt requests.
 
 ---
-集成的时候，需要在根目录的setting.gradle中加入如下路径：
+To integrate it, add this to the root settings.gradle:
 ```groovy
 include ':LtpNetWork'
 project(':LtpNetWork').projectDir = new File('LtpNetWork/app')
 ```
-在 app目录下面的build.gradle中引入即可。
+Then depend on it from the app build.gradle:
 ```groovy
 implementation project(path: ':LtpNetWork')
 ```

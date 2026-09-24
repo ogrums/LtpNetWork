@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         hashMap["sn"] = AppUtils.getSerialNo()
         hashMap["ts"] = System.currentTimeMillis()/1000
         repo.getIotTriplet(hashMap).collect {
-            Log.d("<<<", "结果返回--it=${it.data}")
+            Log.d("<<<", "result it=${it.data}")
         }
     }
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun test2(){
         val repo: NetDataRepositorySource = NetDataRepository(this)
-//        val addressModel = AddressModel("省", "市", "区", "")
+//        val addressModel = AddressModel("province", "city", "district", "")
 //        val order = OrderModel(addressModel, 0.0, "123")
 //        repo.getCaptchaSmsRequest(order).collect {
 //            Log.d("<<<", "it=${it.data}")

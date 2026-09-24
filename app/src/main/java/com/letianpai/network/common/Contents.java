@@ -10,8 +10,8 @@ public class Contents {
     public static final String APP_NAME = "AIFeedback";
 
     /**
-     * Header中需要添加的请求参数
-     * 具体说明，参考wiki: http://jira.xgrobotics.com:8090/pages/viewpage.action?pageId=655396
+     * Request headers added to every call
+     * See the internal wiki: http://jira.xgrobotics.com:8090/pages/viewpage.action?pageId=655396
      * */
     public interface HEADER {
         String USER_AGENT = "User-Agent";

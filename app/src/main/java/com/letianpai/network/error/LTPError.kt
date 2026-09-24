@@ -24,7 +24,7 @@ const val USER_NAME_ERROR = -102
 const val USER_PHONE_ERROR = -102
 const val CHECK_YOUR_PRIVACY = -104
 
-//HTTP本身错误码
+// HTTP status codes
 const val HTTP_INPUT_INVALID: Int = 400
 const val HTTP_UNAUTHORIZED = 401
 const val HTTP_FORBIDDEN = 403
@@ -34,31 +34,31 @@ const val HTTP_INTERNAL_SERVER_ERROR = 500
 const val HTTP_SERVICE_UNAVAILABLE = 503
 const val HTTP_GATEWAY_TIMEOUT = 504
 
-//自定义其他错误码
+// Other custom error codes
 const val UNKNOWN_ERROR = 50000
 const val NODATA_ERROR = 20000
 const val DATAFORMAT_ERROR = 20001
 const val UNAUTHORIZED_ERROR = 20002
 const val PARSE_ERROR = 20003
 
-//请求的数据没有权限
+// The requested data is not authorized
 const val DATA_UNAUTHORIZED_ERROR = 20004
 
-//请求的数据已经下线
+// The requested data is offline
 const val DATA_OFFLINE_ERROR = 20005
 
-//数据重复
+// Duplicate data
 const val DATA_DUPLICATE_ERROR = 20006
 
-//请求参数无效
+// Invalid request parameters
 const val REQUEST_PARAMS_INVALID = 47001
 
-//APPid  无效
+// Invalid app id
 const val APPID_INVALID = 30001
 
-//token 无效
+// Invalid token
 const val USER_TOKEN_INVALID = 40000
 
-//服务器错误
+// Server error
 const val SERVER_ERROR = -1
 const val SOCKET_TIMEOUT = 40002

@@ -54,10 +54,10 @@ open class RemoteData(context: Context) :
             responseError(response)
         }
     }
-    //----------------TODO：以下是业务接口--------
+    // business APIs below
 
     /**
-     * 获取长连三元组
+     * Fetch the long-connection IoT triplet
      */
     suspend fun getIotTriplet(hashMap: HashMap<String, Any>): Resource<IotTripletM>{
         val response =

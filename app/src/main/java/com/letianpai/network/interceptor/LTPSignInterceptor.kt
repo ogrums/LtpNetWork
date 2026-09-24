@@ -21,7 +21,7 @@ class LTPSignInterceptor : Interceptor {
         var __sign: String?
         val timestamp = java.lang.Long.toString(System.currentTimeMillis() / 1000)
 
-        //TreeMap里面的数据会按照key值自动升序排列
+        // TreeMap sorts entries by key
         val param_map = TreeMap<String, String>()
 
         val sign = StringBuilder()
@@ -33,15 +33,15 @@ class LTPSignInterceptor : Interceptor {
                         }
                     }*/
         } else if (origin_request.method == "GET" || origin_request.method.equals("DELETE")) {
-            //拼接timestamp
+            // append the timestamp
             val url = origin_request.url.toString()
 
             Log.d("BSignInterceptor", "url：： $url")
 
-            //获取参数列表
+            // read the parameter list
             val parts = url.split("?")
             if (parts.size > 1) {
-                //获取参数对
+                // read each parameter pair
                 val param_pairs = parts[1].split("&")
                 Log.d("BSignInterceptor", "param_pairs：： $param_pairs")
 
@@ -65,7 +65,7 @@ class LTPSignInterceptor : Interceptor {
         param_map["time"] = timestamp
 
         val it = param_map.keys.iterator()
-        //拼接参数
+        // join the parameters
         while (it.hasNext()) {
             val key = it.next()
             val value = param_map.get(key)
@@ -81,7 +81,7 @@ class LTPSignInterceptor : Interceptor {
 
         Log.d("BSignInterceptor", "sign：： $sign")
 
-        //Md5加密
+        // MD5
         __sign = HeaderUtils.md5(sign.toString())
         val requestBuilder = origin_request.newBuilder()
                 .addHeader(Contents.HEADER.SIGN, __sign)
