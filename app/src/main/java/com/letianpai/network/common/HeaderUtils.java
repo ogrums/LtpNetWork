@@ -44,7 +44,7 @@ public class HeaderUtils {
 
     public static int getAppVersionCode(Context mContext) {
         int versionCode = 0;
-        try { //获取软件版本号，对应AndroidManifest.xml下android:versionCode
+        try { // versionCode from AndroidManifest.xml
             versionCode = mContext.getPackageManager(). getPackageInfo(mContext.getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class HeaderUtils {
 
     public static String getMacAddressBlow6(Context context) {
 
-        // 如果是6.0以下，直接通过wifimanager获取
+        // Below Android 6, read it from WifiManager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             String macAddress0 = getMacAddress0(context);
             if (!TextUtils.isEmpty(macAddress0)) {
@@ -89,7 +89,7 @@ public class HeaderUtils {
             for (; null != str; ) {
                 str = input.readLine();
                 if (str != null) {
-                    macSerial = str.trim();// 去空格
+                    macSerial = str.trim();
                     break;
                 }
             }
@@ -255,7 +255,7 @@ public class HeaderUtils {
 
 
     /**
-     * 修改于 2021-08-10 与rom确认
+     * Confirmed with the ROM team on 2021-08-10
      *
      * @return
      */
@@ -273,7 +273,7 @@ public class HeaderUtils {
     }
 
     /**
-     * 获取manifest中的配置的数据
+     * Read a value from the manifest metadata
      * @param context
      * @param name
      * @param <T>

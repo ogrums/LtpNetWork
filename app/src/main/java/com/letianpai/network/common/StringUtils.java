@@ -133,8 +133,8 @@ public class StringUtils {
     /**
      * encoded in utf-8
      *
-     * @param str 字符串
-     * @return 返回一个utf8的字符串
+     * @param str string
+     * @return a UTF-8 string
      */
     public static String utf8Encode(String str) {
 
@@ -151,8 +151,8 @@ public class StringUtils {
 
 
     /**
-     * @param href 字符串
-     * @return 返回一个html
+     * @param href string
+     * @return an HTML string
      */
     public static String getHrefInnerHtml(String href) {
 
@@ -172,8 +172,8 @@ public class StringUtils {
 
 
     /**
-     * @param source 字符串
-     * @return 返回htmL到字符串
+     * @param source string
+     * @return the HTML converted to a string
      */
     public static String htmlEscapeCharsToString(String source) {
 
@@ -215,8 +215,8 @@ public class StringUtils {
 
 
     /**
-     * @param s 字符串
-     * @return 返回的数值
+     * @param s string
+     * @return numeric value
      */
     public static String halfWidthToFullWidth(String s) {
 
@@ -243,8 +243,8 @@ public class StringUtils {
 
 
     /**
-     * @param str 资源
-     * @return 特殊字符串切换
+     * @param str source
+     * @return the string after special-character replacement
      */
 
     public static String replaceBlanktihuan(String str) {
@@ -260,9 +260,9 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串是否为null或者是空的
+     * True when the string is null or empty.
      *
-     * @param string 给定的字符串
+     * @param string the string
      */
     public static boolean isEmpty(String string) {
         return string == null || "".equals(string.trim());
@@ -270,9 +270,9 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串是否不为null且不为空
+     * True when the string is not null and not empty.
      *
-     * @param string 给定的字符串
+     * @param string the string
      */
     public static boolean isNotEmpty(String string) {
         return !isEmpty(string);
@@ -280,9 +280,9 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串数组中的所有字符串是否都为null或者是空的
+     * True when every string in the array is null or empty.
      *
-     * @param strings 给定的字符串
+     * @param strings the strings
      */
     public static boolean isEmpty(String... strings) {
         boolean result = true;
@@ -297,10 +297,10 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串数组中是否全部都不为null且不为空
+     * True when every string in the array is not null and not empty.
      *
-     * @param strings 给定的字符串数组
-     * @return 是否全部都不为null且不为空
+     * @param strings the string array
+     * @return true when none of them is null or empty
      */
     public static boolean isNotEmpty(String... strings) {
         boolean result = true;
@@ -315,7 +315,7 @@ public class StringUtils {
 
 
     /**
-     * 如果字符串是null或者空就返回""
+     * Return "" when the string is null or empty.
      */
     public static String filterEmpty(String string) {
         return StringUtils.isNotEmpty(string) ? string : "";
@@ -323,12 +323,12 @@ public class StringUtils {
 
 
     /**
-     * 在给定的字符串中，用新的字符替换所有旧的字符
+     * Replace every old character with the new character.
      *
-     * @param string 给定的字符串
-     * @param oldchar 旧的字符
-     * @param newchar 新的字符
-     * @return 替换后的字符串
+     * @param string the string
+     * @param oldchar character to replace
+     * @param newchar replacement character
+     * @return the replaced string
      */
     public static String replace(String string, char oldchar, char newchar) {
         char chars[] = string.toCharArray();
@@ -343,11 +343,11 @@ public class StringUtils {
 
 
     /**
-     * 把给定的字符串用给定的字符分割
+     * Split the string on the given character.
      *
-     * @param string 给定的字符串
-     * @param ch 给定的字符
-     * @return 分割后的字符串数组
+     * @param string the string
+     * @param ch split character
+     * @return the split parts
      */
     public static String[] split(String string, char ch) {
         ArrayList<String> stringList = new ArrayList<String>();
@@ -358,13 +358,13 @@ public class StringUtils {
                 stringList.add(new String(chars, nextStart, w - nextStart));
                 nextStart = w + 1;
                 if (nextStart ==
-                        chars.length) {    //当最后一位是分割符的话，就再添加一个空的字符串到分割数组中去
+                        chars.length) {    // a trailing separator adds an extra empty part
                     stringList.add("");
                 }
             }
         }
         if (nextStart <
-                chars.length) {    //如果最后一位不是分隔符的话，就将最后一个分割符到最后一个字符中间的左右字符串作为一个字符串添加到分割数组中去
+                chars.length) {    // without a trailing separator, keep the text after the last separator
             stringList.add(new String(chars, nextStart,
                     chars.length - 1 - nextStart + 1));
         }
@@ -373,10 +373,10 @@ public class StringUtils {
 
 
     /**
-     * 计算给定的字符串的长度，计算规则是：一个汉字的长度为2，一个字符的长度为1
+     * Length where one CJK character counts as 2 and one other character counts as 1.
      *
-     * @param string 给定的字符串
-     * @return 长度
+     * @param string the string
+     * @return length
      */
     public static int countLength(String string) {
         int length = 0;
@@ -397,9 +397,9 @@ public class StringUtils {
 
     private static char[] getChars(char[] chars, int startIndex) {
         int endIndex = startIndex + 1;
-        //如果第一个是数字
+        // the first character is a digit
         if (Character.isDigit(chars[startIndex])) {
-            //如果下一个是数字
+            // the next character is a digit
             while (endIndex < chars.length &&
                     Character.isDigit(chars[endIndex])) {
                 endIndex++;
@@ -412,7 +412,7 @@ public class StringUtils {
 
 
     /**
-     * 是否全是数字
+     * True when every character is a digit.
      */
     public static boolean isAllDigital(char[] chars) {
         boolean result = true;
@@ -429,11 +429,11 @@ public class StringUtils {
 
 
     /**
-     * 删除给定字符串中所有的旧的字符
+     * Remove every occurrence of a character.
      *
-     * @param string 源字符串
-     * @param ch 要删除的字符
-     * @return 删除后的字符串
+     * @param string source string
+     * @param ch character to remove
+     * @return the string after removal
      */
     public static String removeChar(String string, char ch) {
         StringBuffer sb = new StringBuffer();
@@ -447,10 +447,10 @@ public class StringUtils {
 
 
     /**
-     * 删除给定字符串中给定位置处的字符
+     * Remove the character at the given index.
      *
-     * @param string 给定字符串
-     * @param index 给定位置
+     * @param string the string
+     * @param index index
      */
     public static String removeChar(String string, int index) {
         String result = null;
@@ -471,11 +471,11 @@ public class StringUtils {
 
 
     /**
-     * 删除给定字符串中给定位置处的字符
+     * Remove the character at the given index.
      *
-     * @param string 给定字符串
-     * @param index 给定位置
-     * @param ch 如果同给定位置处的字符相同，则将给定位置处的字符删除
+     * @param string the string
+     * @param index index
+     * @param ch removed only when it matches the character at the index
      */
     public static String removeChar(String string, int index, char ch) {
         String result = null;
@@ -501,10 +501,10 @@ public class StringUtils {
 
 
     /**
-     * 对给定的字符串进行空白过滤
+     * Treat a blank string as empty.
      *
-     * @param string 给定的字符串
-     * @return 如果给定的字符串是一个空白字符串，那么返回null；否则返回本身。
+     * @param string the string
+     * @return null when the string is blank, otherwise the string itself
      */
     public static String filterBlank(String string) {
         if ("".equals(string)) {
@@ -517,12 +517,12 @@ public class StringUtils {
 
 
     /**
-     * 将给定字符串中给定的区域的字符转换成小写
+     * Lowercase the given range.
      *
-     * @param str 给定字符串中
-     * @param beginIndex 开始索引（包括）
-     * @param endIndex 结束索引（不包括）
-     * @return 新的字符串
+     * @param str the string
+     * @param beginIndex start index, inclusive
+     * @param endIndex end index, exclusive
+     * @return the new string
      */
     public static String toLowerCase(String str, int beginIndex, int endIndex) {
         return str.replaceFirst(str.substring(beginIndex, endIndex),
@@ -532,12 +532,12 @@ public class StringUtils {
 
 
     /**
-     * 将给定字符串中给定的区域的字符转换成大写
+     * Uppercase the given range.
      *
-     * @param str 给定字符串中
-     * @param beginIndex 开始索引（包括）
-     * @param endIndex 结束索引（不包括）
-     * @return 新的字符串
+     * @param str the string
+     * @param beginIndex start index, inclusive
+     * @param endIndex end index, exclusive
+     * @return the new string
      */
     public static String toUpperCase(String str, int beginIndex, int endIndex) {
         return str.replaceFirst(str.substring(beginIndex, endIndex),
@@ -547,10 +547,10 @@ public class StringUtils {
 
 
     /**
-     * 将给定字符串的首字母转为小写
+     * Lowercase the first character.
      *
-     * @param str 给定字符串
-     * @return 新的字符串
+     * @param str the string
+     * @return the new string
      */
     public static String firstLetterToLowerCase(String str) {
         return toLowerCase(str, 0, 1);
@@ -558,10 +558,10 @@ public class StringUtils {
 
 
     /**
-     * 将给定字符串的首字母转为大写
+     * Uppercase the first character.
      *
-     * @param str 给定字符串
-     * @return 新的字符串
+     * @param str the string
+     * @return the new string
      */
     public static String firstLetterToUpperCase(String str) {
         return toUpperCase(str, 0, 1);
@@ -569,10 +569,10 @@ public class StringUtils {
 
 
     /**
-     * 将给定的字符串MD5加密
+     * MD5 of the given string.
      *
-     * @param string 给定的字符串
-     * @return MD5加密后生成的字符串
+     * @param string the string
+     * @return the MD5 hex string
      */
     public static String MD5(String string) {
         String result = null;
@@ -603,10 +603,10 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串是否以一个特定的字符串开头，忽略大小写
+     * True when the string starts with the prefix, ignoring case.
      *
-     * @param sourceString 给定的字符串
-     * @param newString 一个特定的字符串
+     * @param sourceString the string
+     * @param newString the prefix or suffix
      */
     public static boolean startsWithIgnoreCase(String sourceString, String newString) {
         int newLength = newString.length();
@@ -626,10 +626,10 @@ public class StringUtils {
 
 
     /**
-     * 判断给定的字符串是否以一个特定的字符串结尾，忽略大小写
+     * True when the string ends with the suffix, ignoring case.
      *
-     * @param sourceString 给定的字符串
-     * @param newString 一个特定的字符串
+     * @param sourceString the string
+     * @param newString the prefix or suffix
      */
     public static boolean endsWithIgnoreCase(String sourceString, String newString) {
         int newLength = newString.length();
@@ -650,7 +650,7 @@ public class StringUtils {
 
 
     /**
-     * 检查字符串长度，如果字符串的长度超过maxLength，就截取前maxLength个字符串并在末尾拼上appendString
+     * If the string is longer than maxLength, keep the first maxLength characters and append appendString.
      */
     public static String checkLength(String string, int maxLength, String appendString) {
         if (string.length() > maxLength) {
@@ -664,7 +664,7 @@ public class StringUtils {
 
 
     /**
-     * 检查字符串长度，如果字符串的长度超过maxLength，就截取前maxLength个字符串并在末尾拼上…
+     * If the string is longer than maxLength, keep the first maxLength characters and append an ellipsis.
      */
     public static String checkLength(String string, int maxLength) {
         return checkLength(string, maxLength, "…");
@@ -672,7 +672,7 @@ public class StringUtils {
 
 
     /**
-     * 删除Html标签
+     * Strip HTML tags.
      *
      * @param inputString
      * @return
@@ -680,7 +680,7 @@ public class StringUtils {
     public static String htmlRemoveTag(String inputString) {
         if (inputString == null)
             return null;
-        String htmlStr = inputString; // 含html标签的字符串
+        String htmlStr = inputString; // string that may contain HTML tags
         String textStr = "";
         Pattern p_script;
         Matcher m_script;
@@ -689,33 +689,33 @@ public class StringUtils {
         Pattern p_html;
         Matcher m_html;
         try {
-            //定义script的正则表达式{或<script[^>]*?>[\\s\\S]*?<\\/script>
+            // script tag pattern
             String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>";
-            //定义style的正则表达式{或<style[^>]*?>[\\s\\S]*?<\\/style>
+            // style tag pattern
             String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>";
-            String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+            String regEx_html = "<[^>]+>"; // HTML tag pattern
             p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
             m_script = p_script.matcher(htmlStr);
-            htmlStr = m_script.replaceAll(""); // 过滤script标签
+            htmlStr = m_script.replaceAll(""); // drop script tags
             p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
             m_style = p_style.matcher(htmlStr);
-            htmlStr = m_style.replaceAll(""); // 过滤style标签
+            htmlStr = m_style.replaceAll(""); // drop style tags
             p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
             m_html = p_html.matcher(htmlStr);
-            htmlStr = m_html.replaceAll(""); // 过滤html标签
+            htmlStr = m_html.replaceAll(""); // drop HTML tags
             textStr = htmlStr;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return textStr;// 返回文本字符串
+        return textStr;
     }
 
     public static boolean isMobileNO(String mobiles) {
         /*
-        移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
-        联通：130、131、132、152、155、156、185、186
-        电信：133、153、180、189、（1349卫通）
-        总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
+        China Mobile: 134, 135, 136, 137, 138, 139, 150, 151, 157(TD), 158, 159, 187, 188
+        China Unicom: 130, 131, 132, 152, 155, 156, 185, 186
+        China Telecom: 133, 153, 180, 189, (1349 satellite)
+        The first digit is 1, the second is 3, 5, or 8, and the rest are 0-9.
         */
         String telRegex = "[1][3758]\\d{9}";
         if (TextUtils.isEmpty(mobiles))
@@ -751,14 +751,14 @@ public class StringUtils {
     }
 
     /**
-     * 匹配手机号的规则：[3578]是手机号第二位可能出现的数字
+     * Phone rule: the second digit is one of 3, 5, 7, 8.
      */
     public static final String REGEX_MOBILE = "^[1][3578][0-9]{9}$";
 
     /**
-     * 校验手机号
+     * Validate a mobile number.
      * @param mobile
-     * @return 校验通过返回true，否则返回false
+     * @return true when the number matches
      */
     public static boolean isMobile(String mobile) {
         if(TextUtils.isEmpty(mobile)){
@@ -769,7 +769,7 @@ public class StringUtils {
     }
 
     /**
-     * 提示输入内容超过规定长度
+     * Tell the user the input is longer than the limit.
      * @param context
      * @param editText
      * @param max_length
@@ -786,7 +786,7 @@ public class StringUtils {
             public CharSequence filter(CharSequence source, int start, int end,
                                        Spanned dest, int dstart, int dend) {
                 // TODO Auto-generated method stub
-                //获取字符个数(一个中文算2个字符)
+                // character count, one CJK character counts as 2
                 int destLen = StringUtils.getCharacterNum(dest.toString());
                 int sourceLen = StringUtils.getCharacterNum(source.toString());
                 if(destLen + sourceLen > max_length){
@@ -816,9 +816,9 @@ public class StringUtils {
 
 
     /**
-     * 计算字符串的中文长度
+     * CJK-aware length of the string.
      * @param s
-     * 这个换算 UTF-8 num+2(长度+字节数: 一个字节等于3个字符)
+     * UTF-8 estimate: length plus 2 per extra byte, one byte is treated as 3 characters.
      * @return
      */
     public static int getChineseNum(String s){
@@ -834,7 +834,7 @@ public class StringUtils {
 
 
     /**
-     * 这个方法，看着爽，效率低(时间长，耗内存)
+     * Readable but slow and it allocates.
      *
      * @param s
      * @return
@@ -921,7 +921,7 @@ public class StringUtils {
     }
 
     /**
-     * list转为String
+     * Join a list into a string.
      * @param list
      * @return
      */
@@ -931,7 +931,7 @@ public class StringUtils {
         }
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        //第一个前面不拼接","
+        // do not add a comma before the first item
         for(String string :list) {
             if(first) {
                 first=false;
@@ -945,7 +945,7 @@ public class StringUtils {
 
 
     /**
-     * String转为list
+     * Split a string into a list.
      * @param strs
      * @return
      */
@@ -955,7 +955,7 @@ public class StringUtils {
     }
 
     /**
-     * 只取前7个字符
+     * Keep only the first 7 characters.
      * @param str
      * @return
      */

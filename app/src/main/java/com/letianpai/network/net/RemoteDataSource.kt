@@ -31,7 +31,7 @@ abstract class RemoteDataSource(context: Context) {
     private var errorManager: ErrorManager = ErrorManager(ErrorMapper(context))
     private var networkConnectivity: Network = Network(context)
 
-    //---------------------------------------------公共代码--------------------------
+    // shared helpers
     protected fun <T> responseError(response: Any?): Resource<T> {
         return when (response) {
             is HSError -> {
@@ -42,13 +42,13 @@ abstract class RemoteDataSource(context: Context) {
                 Resource.DataError(error)
             }
             else -> {
-                Resource.DataError(HSError(code = 0, description = "接口类型处理异常"))
+                Resource.DataError(HSError(code = 0, description = "unexpected response type"))
             }
         }
     }
 
     /**
-     * 有参数的请求
+     * Request with parameters
      */
     protected suspend fun <T> processCallPramasObj(
         responseCall: KSuspendFunction1<T, Response<BaseResultBean<String>>>,
@@ -66,7 +66,7 @@ abstract class RemoteDataSource(context: Context) {
     }
 
     /**
-     * 有参数的请求
+     * Request with parameters
      */
     protected suspend fun <T> processCallPramasMap(
         responseCall: KSuspendFunction1<HashMap<String, String>, Response<BaseResultBean<T>>>,
@@ -84,7 +84,7 @@ abstract class RemoteDataSource(context: Context) {
     }
 
     /**
-     * 有参数的请求
+     * Request with parameters
      */
 //    protected suspend fun <T> processCall2Pramas(
 //        responseCall: KSuspendFunction1<HashMap<String, String>, Response<BaseResultBean<T>>>,
@@ -149,7 +149,7 @@ abstract class RemoteDataSource(context: Context) {
     }
 
     /**
-     * 有参数的请求
+     * Request with parameters
      */
     protected suspend fun <T> processCallPramasMapAny(
         responseCall: KSuspendFunction1<HashMap<String, Any>, Response<BaseResultBean<T>>>,
@@ -167,7 +167,7 @@ abstract class RemoteDataSource(context: Context) {
     }
 
     /**
-     * 无参数的请求
+     * Request without parameters
      */
     protected suspend fun <T> processCall(responseCall: KSuspendFunction0<Response<BaseResultBean<T>>>): Any? {
         if (!networkConnectivity.isConnected()) {
@@ -195,7 +195,7 @@ abstract class RemoteDataSource(context: Context) {
                 if (resultBean != null) {
                     HSError(code = resultBean.code, description = resultBean.msg)
                 } else {
-                    HSError(code = 0, description = "请求异常")
+                    HSError(code = 0, description = "request failed")
                 }
             }
         } else {

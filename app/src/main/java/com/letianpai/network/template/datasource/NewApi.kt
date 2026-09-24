@@ -6,27 +6,27 @@ import retrofit2.http.*
 
 interface NewApi {
 
-    //获取长连三元组
+    // Fetch the long-connection IoT triplet
     @GET("/robot_api/v1/bind/getIotTriplet")
     suspend fun getIotTriplet( @QueryMap hashMap: HashMap<String, Any>): Response<BaseResultBean<IotTripletM>>
 
 
-    //获取SN 和 hardcode
+    // Fetch SN and hardcode
     @GET("/robot_api/v1/bind/getSnByMac")
     suspend fun getSnHardcode( @QueryMap hashMap: HashMap<String, Any>): Response<BaseResultBean<SnHardcode>>
 
 
-    //更新下载进度
+    // Report the download progress
     @POST("/robot_api/v1/device/upgrade/status")
     suspend fun upgradeStatus(@Query("sn") sn: String, @Query("ts") ts: String,  @Body model: OtaUpgradeStatusModel): Response<BaseResultBean<GeneModel>>
 
-    //获取OTA版本信息
+    // Fetch the latest OTA package
     @GET("/robot_api/v1/ota/getLatestPackage")
     suspend fun getLatestPackage(@QueryMap hashMap: HashMap<String, Any>): Response<BaseResultBean<OtaDataModel>>
 
 
     // -------------------------------------------------------------
-    //提交订单测试
+    // Submit a test order
     @POST("/index/addorder")
     suspend fun getCaptchaSmsRequest(
         @Body order: OrderModel
@@ -37,11 +37,11 @@ interface NewApi {
         @QueryMap hashMap: HashMap<String, String>
     ): Response<BaseResultBean<String>>
 
-    //测试接口
+    // Test API
     @GET("index/hello")
     suspend fun getTestRequest(): Response<BaseResultBean<String>>
 
-    //测试接口
+    // Test API
     @GET("index/getorder")
     suspend fun getOrderModelReq(): Response<BaseResultBean<OrderModel>>
 

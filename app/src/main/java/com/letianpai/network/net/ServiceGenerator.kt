@@ -24,7 +24,7 @@ class ServiceGenerator {
     private val timeoutRead = 30   //In seconds
     private val timeoutConnect = 30   //In seconds
 
-    // 不能用单利，不然切换语言的时候，URL不会变
+    // Do not cache a singleton: the host must change when the language changes.
 //    companion object{
 //        fun getInstance()= InstanceHelper.serviceGenerator
 //    }

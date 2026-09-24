@@ -24,7 +24,7 @@ class YHeaderInterceptor: Interceptor {
     private val partSecretKey = ""
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
-        //如果Mac地址不为空
+        // when the MAC address is present
         val macAddress = original.url.queryParameter("mac")
         val sn = original.url.queryParameter("sn")
         if (sn != null){

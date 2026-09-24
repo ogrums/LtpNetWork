@@ -7,7 +7,7 @@ import okhttp3.Response
 
 /**
  * created by yujianbin on 2019/3/21
- *  公共参数
+ * Shared query parameters
  */
 class LTPQueryParameterIntercepter : Interceptor{
     override fun intercept(chain: Interceptor.Chain): Response {

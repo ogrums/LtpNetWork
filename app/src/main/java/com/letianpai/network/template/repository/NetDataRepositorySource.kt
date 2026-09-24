@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NetDataRepositorySource {
 
-    //TODO: 下面接口全部为测试
+    // test APIs below
     fun requestCoopOrgan(): Flow<Resource<List<CoopOrganModel>>>
     fun getCaptchaSmsRequest(hashMap: HashMap<String, String>): Flow<Resource<String>>
     fun getCaptchaSmsRequest(orderModel: OrderModel): Flow<Resource<String>>
@@ -18,7 +18,7 @@ interface NetDataRepositorySource {
     fun getOrderModelReq(): Flow<Resource<OrderModel>>
 
 
-    //TODO:  以下是 业务接口
+    // business APIs below
     fun getIotTriplet(hashMap: HashMap<String, Any>): Flow<Resource<IotTripletM>>
     fun getSnHardcode(hashMap: HashMap<String, Any>): Flow<Resource<SnHardcode>>
     fun upgradeStatus(sn: String ,ts: String, model: OtaUpgradeStatusModel): Flow<Resource<GeneModel>>

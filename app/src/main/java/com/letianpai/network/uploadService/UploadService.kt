@@ -45,7 +45,7 @@ class UploadService : Service() {
                 filePath = path
                 upload()
             }
-            //默认是录音
+            // default type is a voice recording
             if (modelPath.isNullOrEmpty()){
                 modelPath = "record"
             }
@@ -93,7 +93,7 @@ class UploadService : Service() {
                     }
                 } else {
                     XLog.i("qiniu"+ "--Upload Fail");
-                    //如果失败，这里可以把 info 信息上报自己的服务器，便于后面分析上传错误原因
+                    // On failure, report info to your own server so the upload error can be diagnosed.
                 }
             }, null
         )
@@ -174,7 +174,7 @@ class UploadService : Service() {
             }
             it.data?.let {
                 XLog.i("TakePhotoService"+ "---test3: ${it}")
-                XLog.i("$TAG---bindAccount: 上传成功")
+                XLog.i("$TAG---bindAccount: upload succeeded")
                 GlobalScope.launch {
 //                    delay(5000)
                     stopSelf()
